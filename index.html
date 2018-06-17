@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head >
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <title>协议小知识</title>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+</head>
+<body>
+    <div id="list">
+        <ul>
+            <li><a href="#!/http">http1.0,1.1,2.0的区别</a></li>
+            <li><a href="#!/tcp_34">tcp三次挥手和四次挥手</a></li>
+            <li><a href="#!/tcp_udp">tcp和udp</a></li>
+            <li><a href="#!/status_key">状态码</a></li>
+        </ul>
+    </div>
+    <div ng-view>
+
+    </div>
+<script>
+    var app = angular.module("myApp",["ng","ngRoute"]);
+
+    app.controller("myCtrl",["$scope",function($scope){
+
+    }]);
+
+    app.config(function($routeProvider){
+        $routeProvider
+            .when("/",{template:"<p>关于协议的小知识总结</p>"})
+            .when("/http",{templateUrl:"template/http.html"})
+            .when("/tcp_udp",{templateUrl:"template/tcp_udp.html"})
+            .when("/tcp_34",{templateUrl:"template/tcp_34.html"})
+            .when("/status_key",{templateUrl:"template/status_key.html"})
+            .otherwise({redirectTo:"/"});
+    });
+</script>
+</body>
+</html>

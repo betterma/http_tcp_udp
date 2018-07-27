@@ -4,14 +4,14 @@
     <ul>
     <li>
         第一次握手：<br>
-        建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SEND状态，等待服务器确认。[SYN：同步序列编号]
+        起初两端都处于CLOSED关闭状态，Client将标志位SYN置为1，随机产生一个值seq=x，并将该数据包发送给Server，Client进入SYN-SENT状态，等待Server确认；
     </li>
     <li>
         第二次握手：<br>
-        服务器接收到syn包，必须确认客户的syn(ack=j+1),同时自己也发送一个syn（syn=k）包，即syn+ack包，此时服务器进入syn_recv状态。
+        Server收到数据包后由标志位SYN=1得知Client请求建立连接，Server将标志位SYN和ACK都置为1，ack=x+1，随机产生一个值seq=y，并将该数据包发送给Client以确认连接请求，Server进入SYN-RCVD状态
     </li>
     <li>第三次握手：<br>
-         客户端接受到服务器的syn+ack包，向服务器发送确认包ack（ack=k+1）,发送完毕后，客户端和服务器进入established状态，完成三次握手。
+        TCP客户进程收到B的确认后，要向B给出确认报文段（ACK=1，确认号ack=y+1，序号seq=x+1）（初始为seq=x，第二个报文段所以要+1），ACK报文段可以携带数据，不携带数据则不消耗序号。TCP连接已经建立，A进入ESTABLISHED（已建立连接）。
     </li>
         <li>
             <p>三次握手示意图</p>
